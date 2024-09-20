@@ -1,5 +1,5 @@
 <?php
-function block_cajaherramientas_pluginfile($course, $birecord_or_cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+function block_cajaherramientas_pluginfile($course, $birecord_or_cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
     if ($context->contextlevel != CONTEXT_BLOCK) {
         return false;
     }
@@ -8,12 +8,9 @@ function block_cajaherramientas_pluginfile($course, $birecord_or_cm, $context, $
         return false;
     }
 
-    $itemid = array_shift($args);
-    $filename = array_pop($args);
-    $filepath = '/';
-
     $fs = get_file_storage();
-    $file = $fs->get_file($context->id, 'block_cajaherramientas', $filearea, 0, $filepath, $filename);
+    $file = $fs->get_file($context->id, 'block_cajaherramientas', $filearea, 0, '/', $args[0]);
+
     if (!$file) {
         return false;
     }
