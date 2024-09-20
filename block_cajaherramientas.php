@@ -1,12 +1,19 @@
 <?php
 defined('MOODLE_INTERNAL') || die();
 
-class block_cajaherramientas extends block_base {
-    public function init() {
+require_once($CFG->dirroot . '/course/renderer.php');
+require_once($CFG->dirroot . '/theme/edumy/ccn/course_handler/ccn_course_handler.php');
+require_once($CFG->dirroot . '/theme/edumy/ccn/block_handler/ccn_block_handler.php');
+
+class block_cajaherramientas extends block_base
+{
+    public function init()
+    {
         $this->title = get_string('pluginname', 'block_cajaherramientas');
     }
 
-    public function get_content() {
+    public function get_content()
+    {
         if ($this->content !== null) {
             return $this->content;
         }
@@ -18,7 +25,8 @@ class block_cajaherramientas extends block_base {
         return $this->content;
     }
 
-    private function generate_content() {
+    private function generate_content()
+    {
         global $OUTPUT;
 
         $config = $this->config;
@@ -105,19 +113,15 @@ class block_cajaherramientas extends block_base {
         return $output;
     }
 
-    public function instance_allow_multiple() {
-        return false;
+
+    function applicable_formats()
+    {
+        $ccnBlockHandler = new ccnBlockHandler();
+        return $ccnBlockHandler->ccnGetBlockApplicability(array('all'));
     }
 
-    public function has_config() {
-        return false;
-    }
-
-    public function applicable_formats() {
-        return array('all' => true);
-    }
-
-    public function instance_config_save($data, $nolongerused = false) {
+    public function instance_config_save($data, $nolongerused = false)
+    {
         // Manejar la imagen de fondo.
         $context = $this->context;
         if (isset($data->backgroundimage)) {
@@ -134,5 +138,27 @@ class block_cajaherramientas extends block_base {
         }
 
         parent::instance_config_save($data, $nolongerused);
+    }
+    public function html_attributes()
+    {
+        global $CFG;
+        $attributes = parent::html_attributes();
+        include($CFG->dirroot . '/theme/edumy/ccn/block_handler/attributes.php');
+        return $attributes;
+    }
+
+    public function instance_allow_multiple()
+    {
+        return false;
+    }
+
+    public function has_config()
+    {
+        return false;
+    }
+
+    public function cron()
+    {
+        return true;
     }
 }
