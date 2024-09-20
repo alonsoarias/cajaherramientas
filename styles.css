@@ -1,0 +1,77 @@
+.cajaherramientas-block {
+    position: relative;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.background {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* Superposición oscura */
+    border-radius: 10px;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+}
+
+.title {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.courses {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.course-card {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.course-name {
+    font-size: 20px;
+    margin-bottom: 5px;
+}
+
+.course-type,
+.teacher-name {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.enter-button,
+.portfolio-button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.enter-button:hover,
+.portfolio-button:hover {
+    background-color: #0056b3;
+}
