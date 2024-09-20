@@ -1,31 +1,32 @@
 /* Estilos para el bloque Caja de Herramientas */
-.block_cajaherramientas .caja-herramientas {
+.block_cajaherramientas_container {
     font-family: Arial, sans-serif;
     background-color: #0056b3;
     color: white;
     padding: 30px 20px;
     border-radius: 15px;
     margin: 20px 0;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
-.block_cajaherramientas .caja-header {
+.block_cajaherramientas_header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-.block_cajaherramientas .caja-title {
+.block_cajaherramientas_title {
     font-size: 2em;
     margin-bottom: 5px;
+    color: white;
 }
 
-.block_cajaherramientas .caja-subtitle {
+.block_cajaherramientas_subtitle {
     font-size: 1em;
     margin-top: 0;
 }
 
-.block_cajaherramientas .cards-container {
+.block_cajaherramientas_cards_container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -33,7 +34,7 @@
     margin-bottom: 20px;
 }
 
-.block_cajaherramientas .card {
+.block_cajaherramientas_card {
     width: 280px;
     background-color: #ffffff;
     border-radius: 10px;
@@ -43,14 +44,14 @@
     border: 2px solid #00437a;
 }
 
-.block_cajaherramientas .card-header {
+.block_cajaherramientas_card_header {
     background-color: #00437a;
     padding: 20px;
     position: relative;
     border-radius: 8px 8px 0 0;
 }
 
-.block_cajaherramientas .cocoon-card-header {
+.block_cajaherramientas_card_header_text {
     background: white;
     color: #00437a;
     position: absolute;
@@ -63,25 +64,25 @@
     z-index: 2;
 }
 
-.block_cajaherramientas .card-body {
+.block_cajaherramientas_card_body {
     padding: 15px;
     padding-bottom: 35px;
 }
 
-.block_cajaherramientas .card-title {
+.block_cajaherramientas_card_title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
 }
 
-.block_cajaherramientas .card-text {
+.block_cajaherramientas_card_text {
     font-size: 12px;
     color: #666;
     margin-bottom: 3px;
 }
 
-.block_cajaherramientas .card-button {
+.block_cajaherramientas_card_button {
     background-color: #ffffff;
     color: #00437a;
     border: 2px solid #00437a;
@@ -99,12 +100,12 @@
     text-decoration: none;
 }
 
-.block_cajaherramientas .card-button:hover {
+.block_cajaherramientas_card_button:hover {
     background-color: #00437a;
     color: #ffffff;
 }
 
-.block_cajaherramientas .portfolio-button {
+.block_cajaherramientas_portfolio_button {
     background-color: #ffffff;
     color: #00437a;
     border: 2px solid #00437a;
@@ -119,7 +120,7 @@
     margin: 0 auto;
 }
 
-.block_cajaherramientas .portfolio-button:hover {
+.block_cajaherramientas_portfolio_button:hover {
     background-color: #00437a;
     color: #ffffff;
 }
