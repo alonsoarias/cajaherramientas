@@ -3,7 +3,6 @@ defined('MOODLE_INTERNAL') || die();
 
 class block_cajaherramientas_edit_form extends block_edit_form
 {
-
     protected function specific_definition($mform)
     {
         // Sección para el título y subtítulo.
@@ -21,9 +20,10 @@ class block_cajaherramientas_edit_form extends block_edit_form
 
         // Selector de archivo para la imagen de fondo.
         $mform->addElement('filemanager', 'config_backgroundimage', get_string('backgroundimage', 'block_cajaherramientas'), null, array(
-            'maxbytes' => 2097152,
-            'accepted_types' => array('.jpg', '.png', '.gif'),
-            'maxfiles' => 1
+            'subdirs' => 0,
+            'maxbytes' => 1048576,
+            'maxfiles' => 1,
+            'accepted_types' => 'web_image'
         ));
         $mform->setType('config_backgroundimage', PARAM_INT);
 
@@ -34,7 +34,7 @@ class block_cajaherramientas_edit_form extends block_edit_form
             3 => '3'
         );
         $mform->addElement('select', 'config_coursecount', get_string('coursecount', 'block_cajaherramientas'), $coursecount_options);
-        $mform->setDefault('config_coursecount', 3);
+        $mform->setDefault('config_coursecount', 1);
         $mform->setType('config_coursecount', PARAM_INT);
 
         // URL del portafolio.
@@ -78,7 +78,7 @@ class block_cajaherramientas_edit_form extends block_edit_form
                 'block_cajaherramientas',
                 'backgroundimage',
                 0,
-                array('subdirs' => false)
+                array('subdirs' => 0, 'maxbytes' => 1048576, 'maxfiles' => 1, 'accepted_types' => 'web_image')
             );
             $defaults->config_backgroundimage = $draftitemid;
         }
