@@ -33,8 +33,8 @@ class block_cajaherramientas extends block_base
         $output = '';
 
         // Título y subtítulo del bloque.
-        $title = isset($config->title) ? format_string($config->title) : 'Caja de Herramientas';
-        $subtitle = isset($config->subtitle) ? format_string($config->subtitle) : 'Mejora tus habilidades con los mejores cursos online';
+        $title = isset($config->title) ? format_string($config->title) : get_string('defaulttitle', 'block_cajaherramientas');
+        $subtitle = isset($config->subtitle) ? format_string($config->subtitle) : get_string('defaultsubtitle', 'block_cajaherramientas');
 
         // Comienza el contenedor principal.
         $output .= html_writer::start_div('block_cajaherramientas_container');
@@ -82,11 +82,11 @@ class block_cajaherramientas extends block_base
         $coursecount = isset($config->coursecount) ? $config->coursecount : 1;
         $coursecount = max(1, min(3, $coursecount)); // Asegura que el número de cursos esté entre 1 y 3
         for ($i = 1; $i <= $coursecount; $i++) {
-            $coursetitle = isset($config->{"coursename$i"}) ? format_string($config->{"coursename$i"}) : "Curso $i";
-            $coursetype = isset($config->{"coursetype$i"}) ? format_string($config->{"coursetype$i"}) : "Tipo de curso";
-            $coursetext1 = isset($config->{"coursetext1_$i"}) ? format_string($config->{"coursetext1_$i"}) : "Electiva/Seminario/Cátedra/Práctica";
-            $coursetext2 = isset($config->{"coursetext2_$i"}) ? format_string($config->{"coursetext2_$i"}) : "Docente: Nombre N. Apellido A";
-            $courseurl = isset($config->{"courseurl$i"}) ? $config->{"courseurl$i"} : '#';
+            $coursetitle = isset($config->{"coursename$i"}) ? format_string($config->{"coursename$i"}) : get_string('defaultcoursename', 'block_cajaherramientas', $i);
+            $coursetype = isset($config->{"coursetype$i"}) ? format_string($config->{"coursetype$i"}) : get_string('defaultcoursetype', 'block_cajaherramientas');
+            $coursetext1 = isset($config->{"coursetext1_$i"}) ? format_string($config->{"coursetext1_$i"}) : get_string('defaultcoursetext1', 'block_cajaherramientas');
+            $coursetext2 = isset($config->{"coursetext2_$i"}) ? format_string($config->{"coursetext2_$i"}) : get_string('defaultcoursetext2', 'block_cajaherramientas');
+            $courseurl = isset($config->{"courseurl$i"}) ? $config->{"courseurl$i"} : '';
 
             // Comienza la tarjeta.
             $output .= html_writer::start_div('block_cajaherramientas_card');
@@ -103,17 +103,21 @@ class block_cajaherramientas extends block_base
             $output .= html_writer::tag('p', $coursetext2, array('class' => 'block_cajaherramientas_card_text'));
             $output .= html_writer::end_div(); // Fin de block_cajaherramientas_card_body.
 
-            // Botón "Ingresar".
-            $output .= html_writer::link($courseurl, 'Ingresar', array('class' => 'block_cajaherramientas_card_button'));
+            // Botón "Ingresar" solo si hay una URL válida.
+            if (!empty($courseurl) && $courseurl !== '#') {
+                $output .= html_writer::link($courseurl, get_string('enter', 'block_cajaherramientas'), array('class' => 'block_cajaherramientas_card_button'));
+            }
 
             $output .= html_writer::end_div(); // Fin de block_cajaherramientas_card.
         }
 
         $output .= html_writer::end_div(); // Fin de block_cajaherramientas_cards_container.
 
-        // Botón "Ver el portafolio".
-        $portfolio_url = isset($config->portfolio_url) ? $config->portfolio_url : '#';
-        $output .= html_writer::link($portfolio_url, 'Ver el portafolio', array('class' => 'block_cajaherramientas_portfolio_button'));
+        // Botón "Ver el portafolio" solo si hay una URL válida.
+        $portfolio_url = isset($config->portfolio_url) ? $config->portfolio_url : '';
+        if (!empty($portfolio_url) && $portfolio_url !== '#') {
+            $output .= html_writer::link($portfolio_url, get_string('viewportfolio', 'block_cajaherramientas'), array('class' => 'block_cajaherramientas_portfolio_button'));
+        }
 
         $output .= html_writer::end_div(); // Fin de block_cajaherramientas_content
         $output .= html_writer::end_div(); // Fin de block_cajaherramientas_container.
