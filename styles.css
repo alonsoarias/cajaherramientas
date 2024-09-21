@@ -1,16 +1,48 @@
 /* Estilos para el bloque Caja de Herramientas */
 .block_cajaherramientas_container {
     font-family: Arial, sans-serif;
-    background-color: #0056b3;
     color: white;
     padding: 30px 20px;
     border-radius: 15px;
     margin: 20px 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
+    overflow: hidden;
+}
+
+.block_cajaherramientas_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+}
+
+.block_cajaherramientas_overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: -webkit-linear-gradient(135deg, #004991 0%, #004991 100%);
+    background-image: linear-gradient(135deg, #004991 0%, #004991 100%);
+    opacity: 0.6;
+    z-index: 2;
+}
+
+.block_cajaherramientas_content {
+    position: relative;
+    z-index: 3;
 }
 
 .block_cajaherramientas_header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -24,6 +56,7 @@
 .block_cajaherramientas_subtitle {
     font-size: 1em;
     margin-top: 0;
+    color: white;
 }
 
 .block_cajaherramientas_cards_container {
@@ -42,6 +75,12 @@
     overflow: visible;
     position: relative;
     border: 2px solid #00437a;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.block_cajaherramientas_card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .block_cajaherramientas_card_header {
@@ -62,6 +101,11 @@
     border-radius: 0 50px 50px 0 !important;
     padding: 0.2rem 1rem;
     z-index: 2;
+    transition: padding 0.3s ease;
+}
+
+.block_cajaherramientas_card:hover .block_cajaherramientas_card_header_text {
+    padding: 0.2rem 1.5rem;
 }
 
 .block_cajaherramientas_card_body {
@@ -70,14 +114,14 @@
 }
 
 .block_cajaherramientas_card_title {
-    font-size: 16px;
+    font-size: 17.6px;
     font-weight: bold;
     margin-bottom: 5px;
     color: #333;
 }
 
 .block_cajaherramientas_card_text {
-    font-size: 12px;
+    font-size: 13.2px;
     color: #666;
     margin-bottom: 3px;
 }
@@ -98,11 +142,13 @@
     white-space: nowrap;
     z-index: 3;
     text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .block_cajaherramientas_card_button:hover {
     background-color: #00437a;
     color: #ffffff;
+    transform: translateX(-50%) scale(1.05);
 }
 
 .block_cajaherramientas_portfolio_button {
@@ -118,9 +164,24 @@
     display: block;
     width: fit-content;
     margin: 0 auto;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .block_cajaherramientas_portfolio_button:hover {
     background-color: #00437a;
     color: #ffffff;
+    transform: scale(1.05);
 }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.block_cajaherramientas_card {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.block_cajaherramientas_card:nth-child(1) { animation-delay: 0.1s; }
+.block_cajaherramientas_card:nth-child(2) { animation-delay: 0.2s; }
+.block_cajaherramientas_card:nth-child(3) { animation-delay: 0.3s; }
