@@ -54,14 +54,20 @@ class block_cajaherramientas extends block_base
                     $file->get_filepath(),
                     $file->get_filename()
                 );
-                $bgstyle = "background-image: url('{$bgurl}'); background-size: cover; background-position: center; background-blend-mode: overlay;";
+                $bgstyle = "background-image: url('{$bgurl}'); background-size: cover; background-position: center;";
             }
         }
 
         // Aplicar estilo de fondo si hay una imagen.
         if ($bgstyle) {
-            $output = str_replace('class="block_cajaherramientas_container"', 'class="block_cajaherramientas_container" style="' . $bgstyle . '"', $output);
+            $output .= html_writer::div('', 'block_cajaherramientas_background', ['style' => $bgstyle]);
         }
+
+        // Superposición azul semitransparente
+        $output .= html_writer::div('', 'block_cajaherramientas_overlay');
+
+        // Contenido del bloque
+        $output .= html_writer::start_div('block_cajaherramientas_content');
 
         // Encabezado del bloque.
         $output .= html_writer::start_div('block_cajaherramientas_header');
@@ -109,6 +115,7 @@ class block_cajaherramientas extends block_base
         $portfolio_url = isset($config->portfolio_url) ? $config->portfolio_url : '#';
         $output .= html_writer::link($portfolio_url, 'Ver el portafolio', array('class' => 'block_cajaherramientas_portfolio_button'));
 
+        $output .= html_writer::end_div(); // Fin de block_cajaherramientas_content
         $output .= html_writer::end_div(); // Fin de block_cajaherramientas_container.
 
         return $output;
