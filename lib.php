@@ -37,21 +37,15 @@ defined('MOODLE_INTERNAL') || die();
  * @return bool false if the file not found, just send the file otherwise and do not return anything
  */
 function block_cajaherramientas_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    global $CFG;
-
-    require_once($CFG->libdir . '/filelib.php');
-
     if ($context->contextlevel != CONTEXT_BLOCK) {
         return false;
     }
 
-    // Make sure the filearea is one we want to serve files from
     if ($filearea !== 'backgroundimage') {
         return false;
     }
 
     $fs = get_file_storage();
-
     $filename = array_pop($args);
     $filepath = $args ? '/' . implode('/', $args) . '/' : '/';
     $file = $fs->get_file($context->id, 'block_cajaherramientas', $filearea, 0, $filepath, $filename);
@@ -60,6 +54,5 @@ function block_cajaherramientas_pluginfile($course, $cm, $context, $filearea, $a
         return false;
     }
 
-    // Cache images for 1 day
-    send_stored_file($file, 0, 0, $forcedownload, $options);
+    send_stored_file($file, 86400, 0, $forcedownload, $options);
 }
