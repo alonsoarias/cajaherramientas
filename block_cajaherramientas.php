@@ -31,10 +31,6 @@ class block_cajaherramientas extends block_base
         $config = $this->config;
         $output = '';
 
-        // Título y subtítulo del bloque.
-        $title = isset($config->title) ? format_string($config->title) : get_string('defaulttitle', 'block_cajaherramientas');
-        $subtitle = isset($config->subtitle) ? format_string($config->subtitle) : get_string('defaultsubtitle', 'block_cajaherramientas');
-
         // Comienza el contenedor principal.
         $output .= html_writer::start_div('block_cajaherramientas_container');
 
@@ -65,7 +61,13 @@ class block_cajaherramientas extends block_base
         // Superposición azul semitransparente
         $output .= html_writer::div('', 'block_cajaherramientas_overlay');
 
-        // Contenido del bloque
+        // Contenido del bloque dentro de un container
+        $output .= html_writer::start_div('container');
+
+        // Título y subtítulo del bloque.
+        $title = isset($config->title) ? format_string($config->title) : get_string('defaulttitle', 'block_cajaherramientas');
+        $subtitle = isset($config->subtitle) ? format_string($config->subtitle) : get_string('defaultsubtitle', 'block_cajaherramientas');
+
         $output .= html_writer::start_div('block_cajaherramientas_content');
 
         // Encabezado del bloque.
@@ -119,7 +121,8 @@ class block_cajaherramientas extends block_base
         }
 
         $output .= html_writer::end_div(); // Fin de block_cajaherramientas_content
-        $output .= html_writer::end_div(); // Fin de block_cajaherramientas_container.
+        $output .= html_writer::end_div(); // Fin del container
+        $output .= html_writer::end_div(); // Fin de block_cajaherramientas_container
 
         return $output;
     }
