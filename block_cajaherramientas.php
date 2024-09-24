@@ -80,7 +80,7 @@ class block_cajaherramientas extends block_base
 
         // Cursos destacados.
         $coursecount = isset($config->coursecount) ? $config->coursecount : 1;
-        $coursecount = max(1, min(3, $coursecount)); // Asegura que el número de cursos esté entre 1 y 3
+        $coursecount = max(1, min(6, $coursecount)); // Asegura que el número de cursos esté entre 1 y 6
         for ($i = 1; $i <= $coursecount; $i++) {
             $coursetitle = isset($config->{"coursename$i"}) ? format_string($config->{"coursename$i"}) : get_string('defaultcoursename', 'block_cajaherramientas', $i);
             $coursetype = isset($config->{"coursetype$i"}) ? format_string($config->{"coursetype$i"}) : get_string('defaultcoursetype', 'block_cajaherramientas');
@@ -109,9 +109,18 @@ class block_cajaherramientas extends block_base
             }
 
             $output .= html_writer::end_div(); // Fin de block_cajaherramientas_card.
+
+            // Crear una nueva fila después de cada 3 tarjetas
+            if ($i % 3 == 0 && $i < $coursecount) {
+                $output .= html_writer::end_div(); // Cierra la fila actual
+                $output .= html_writer::start_div('block_cajaherramientas_cards_container'); // Inicia una nueva fila
+            }
         }
 
-        $output .= html_writer::end_div(); // Fin de block_cajaherramientas_cards_container.
+        // Asegurar que el contenedor final esté cerrado
+        if ($coursecount % 3 != 0) {
+            $output .= html_writer::end_div();
+        }
 
         // Botón "Ver el portafolio" solo si hay una URL válida.
         $portfolio_url = isset($config->portfolio_url) ? $config->portfolio_url : '';
