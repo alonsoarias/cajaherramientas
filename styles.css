@@ -105,7 +105,7 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-    font-size: 12px;
+    font-size: 13px;
     border-radius: 0 50px 50px 0 !important;
     padding: 0.2rem 1rem;
     z-index: 2;
