@@ -31,7 +31,10 @@ class block_cajaherramientas_edit_form extends block_edit_form {
         $coursecount_options = array(
             1 => '1',
             2 => '2',
-            3 => '3'
+            3 => '3',
+            4 => '4',
+            5 => '5',
+            6 => '6',
         );
         $mform->addElement('select', 'config_coursecount', get_string('coursecount', 'block_cajaherramientas'), $coursecount_options);
         $mform->setDefault('config_coursecount', 1);
@@ -42,7 +45,7 @@ class block_cajaherramientas_edit_form extends block_edit_form {
         $mform->setType('config_portfolio_url', PARAM_URL);
 
         // Campos para cada curso.
-        for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 6; $i++) {
             $mform->addElement('header', "courseheader$i", get_string('course', 'block_cajaherramientas') . " $i");
 
             // Título del curso.
