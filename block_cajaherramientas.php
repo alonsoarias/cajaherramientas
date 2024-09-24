@@ -24,7 +24,6 @@ class block_cajaherramientas extends block_base
 
         return $this->content;
     }
-
     private function generate_content()
     {
         global $OUTPUT;
@@ -41,16 +40,16 @@ class block_cajaherramientas extends block_base
 
         // Imagen de fondo.
         $bgstyle = '';
-        if (!empty($this->config)) {
+        if (!empty($this->config->backgroundimage)) {
             $fs = get_file_storage();
-            $files = $fs->get_area_files($this->context->id, 'block_cajaherramientas', 'backgroundimage', 0, 'itemid, filepath, filename', false);
+            $files = $fs->get_area_files($this->context->id, 'block_cajaherramientas', 'backgroundimage', 0, 'sortorder,filepath,filename', false);
             if ($files) {
                 $file = reset($files);
                 $bgurl = moodle_url::make_pluginfile_url(
                     $file->get_contextid(),
                     $file->get_component(),
                     $file->get_filearea(),
-                    $file->get_itemid(),
+                    null,
                     $file->get_filepath(),
                     $file->get_filename()
                 );
@@ -109,18 +108,9 @@ class block_cajaherramientas extends block_base
             }
 
             $output .= html_writer::end_div(); // Fin de block_cajaherramientas_card.
-
-            // Crear una nueva fila después de cada 3 tarjetas
-            if ($i % 3 == 0 && $i < $coursecount) {
-                $output .= html_writer::end_div(); // Cierra la fila actual
-                $output .= html_writer::start_div('block_cajaherramientas_cards_container'); // Inicia una nueva fila
-            }
         }
 
-        // Asegurar que el contenedor final esté cerrado
-        if ($coursecount % 3 != 0) {
-            $output .= html_writer::end_div();
-        }
+        $output .= html_writer::end_div(); // Fin de block_cajaherramientas_cards_container
 
         // Botón "Ver el portafolio" solo si hay una URL válida.
         $portfolio_url = isset($config->portfolio_url) ? $config->portfolio_url : '';
@@ -133,7 +123,6 @@ class block_cajaherramientas extends block_base
 
         return $output;
     }
-
     function applicable_formats()
     {
         $ccnBlockHandler = new ccnBlockHandler();
@@ -142,22 +131,13 @@ class block_cajaherramientas extends block_base
 
     public function instance_config_save($data, $nolongerused = false)
     {
-        // Manejar la imagen de fondo.
-        $context = $this->context;
-        if (isset($data->backgroundimage)) {
-            $draftitemid = $data->backgroundimage;
-            file_save_draft_area_files(
-                $draftitemid,
-                $context->id,
-                'block_cajaherramientas',
-                'backgroundimage',
-                0,
-                array('subdirs' => 0, 'maxbytes' => 1048576, 'maxfiles' => 1, 'accepted_types' => 'web_image')
-            );
-            $data->backgroundimage = '';
+        if (!empty($data->config_backgroundimage)) {
+            $context = $this->context;
+            $draftitemid = file_get_submitted_draft_itemid('config_backgroundimage');
+            file_save_draft_area_files($draftitemid, $context->id, 'block_cajaherramientas', 'backgroundimage', 0);
+            $data->backgroundimage = $draftitemid;
         }
-
-        parent::instance_config_save($data, $nolongerused);
+        return parent::instance_config_save($data, $nolongerused);
     }
 
     public function html_attributes()
