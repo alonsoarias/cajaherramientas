@@ -37,35 +37,29 @@ defined('MOODLE_INTERNAL') || die();
  * @return bool false if the file not found, just send the file otherwise and do not return anything
  */
 function block_cajaherramientas_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    global $DB, $CFG;
+    global $CFG;
 
-    // Require login to access files
-    require_login();
+    require_once($CFG->libdir . '/filelib.php');
 
-    // Ensure the context level is correct
     if ($context->contextlevel != CONTEXT_BLOCK) {
         return false;
     }
 
-    // Check the file area
+    // Make sure the filearea is one we want to serve files from
     if ($filearea !== 'backgroundimage') {
         return false;
     }
 
-    // Extract itemid and filename from arguments
-    $itemid = array_shift($args); // The itemid identifies the specific file
+    $fs = get_file_storage();
+
     $filename = array_pop($args);
     $filepath = $args ? '/' . implode('/', $args) . '/' : '/';
-
-    // Get the file storage object
-    $fs = get_file_storage();
-    $file = $fs->get_file($context->id, 'block_cajaherramientas', $filearea, $itemid, $filepath, $filename);
-
-    // Check if the file exists and is not a directory
+    $file = $fs->get_file($context->id, 'block_cajaherramientas', $filearea, 0, $filepath, $filename);
+    
     if (!$file || $file->is_directory()) {
         return false;
     }
 
-    // Send the file
-    send_stored_file($file, 86400, 0, $forcedownload, $options);
+    // Cache images for 1 day
+    send_stored_file($file, 0, 0, $forcedownload, $options);
 }
